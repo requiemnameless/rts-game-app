@@ -38,7 +38,8 @@ export default function MainMenu({ onStart }) {
 
   const handleStart = () => {
     const enemies = factionList.filter(f => f.id !== selectedFaction);
-    const enemy = enemies[Math.floor(Math.random() * enemies.length)];
+    // Pick a deterministic opponent based on faction index
+    const enemy = enemies[0];
     onStart(selectedFaction, enemy.id);
   };
 

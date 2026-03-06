@@ -163,7 +163,7 @@ export default function GameCanvas({ playerFaction, enemyFaction, onGameOver }) 
 
   const handleCommand = useCallback((cmd, data) => {
     if (!gameRef.current) return;
-    const { gameState, inputHandler, pathfinding } = gameRef.current;
+    const { gameState, pathfinding } = gameRef.current;
 
     switch (cmd) {
       case 'build': {

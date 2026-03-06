@@ -102,13 +102,13 @@ export class GameState {
 
   spawnStartingUnits() {
     // Player HQ and workers
-    const playerHQ = this.createBuilding('hq', 150, 150, 'player');
+    this.createBuilding('hq', 150, 150, 'player');
     for (let i = 0; i < 4; i++) {
       this.createUnit('worker', 150 + (i - 2) * 30, 220, 'player');
     }
 
     // Enemy HQ and workers
-    const enemyHQ = this.createBuilding('hq', this.mapWidth - 150, this.mapHeight - 150, 'enemy');
+    this.createBuilding('hq', this.mapWidth - 150, this.mapHeight - 150, 'enemy');
     for (let i = 0; i < 4; i++) {
       this.createUnit('worker', this.mapWidth - 150 + (i - 2) * 30, this.mapHeight - 220, 'enemy');
     }

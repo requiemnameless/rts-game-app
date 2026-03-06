@@ -89,7 +89,7 @@ export class GameUpdater {
     unit.angle = Math.atan2(dy, dx);
   }
 
-  handleAttack(unit, dt) {
+  handleAttack(unit) {
     const target = unit.attackTarget;
     if (!target || target.hp <= 0) {
       unit.attackTarget = null;
@@ -185,7 +185,7 @@ export class GameUpdater {
     }
   }
 
-  handleReturn(unit, dt) {
+  handleReturn(unit) {
     const hqs = this.gs.buildings.filter(b => b.owner === unit.owner && (b.type === 'hq' || b.type === 'refinery') && b.buildProgress >= 1);
     if (hqs.length === 0) {
       unit.state = 'idle';
@@ -267,7 +267,7 @@ export class GameUpdater {
     }
   }
 
-  handleIdle(unit, dt) {
+  handleIdle(unit) {
     // Auto-attack nearby enemies
     if (unit.attackDamage > 0 && !unit.canHarvest) {
       const enemies = this.gs.units.filter(u => u.owner !== unit.owner);
@@ -336,7 +336,6 @@ export class GameUpdater {
 
       // Production
       if (building.productionQueue.length > 0) {
-        const producing = building.productionQueue[0];
         const faction = building.faction;
         const buildSpeed = faction?.bonuses?.buildSpeed || 1;
         building.productionTimer += dt * buildSpeed;
@@ -345,8 +344,6 @@ export class GameUpdater {
         const template = UNIT_TYPES[unitType];
 
         if (template && building.productionTimer >= template.buildTime) {
-          const rallyX = building.rallyPoint?.x || building.x;
-          const rallyY = building.rallyPoint?.y || building.y + building.size + 20;
           this.gs.createUnit(unitType, building.x, building.y + building.size + 10, building.owner);
 
           building.productionQueue.shift();
